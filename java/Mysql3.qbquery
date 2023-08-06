@@ -1,0 +1,104 @@
+﻿show database;
+
+use usermng;
+
+select * from student1;
+
+# Group By
+
+select COUNT(id), address from student1 group by address;
+select count(id), marks from student1 group by marks;
+select MAX(marks), address  from student1 group by address;
+select MIN(marks), address from student1 group by address order by address DESC;
+select MIN(marks), address from student1 group by address order by MIN(marks);
+
+#Having
+
+select COUNT(id), address from student1 group by address HAVING count(id) > 1 order by address DESC;
+
+#Not Null at column level
+create table employee(id int NOT NULL , name varchar(50) NOT NULL, address varchar(50), salary int);
+select * from employee;
+insert into employee values (null, null, null,null);
+insert into employee values(10, 'ABC1', null, null);
+alter table employee add email varchar(100) not null;
+
+#Autoincremnet
+create table employee1(id int AUTO_INCREMENT , name varchar(50) NOT NULL,
+address varchar(50), salary int, primary key (id));
+
+select * from employee1;
+
+insert into employee1(name, address, salary)
+values('ABC3', 'PUNE1', 20001),('ABC2', 'PUNE2', 20001),('ABC5', 'PUNE3', 20001);
+
+ALTER TABLE employee1 AUTO_INCREMENT =50;
+
+create table employee3 AS (select id, name from employee);
+
+select * from employee3;
+
+#Constraint
+
+CREATE TABLE Student2 ( ID int NOT NULL, Name varchar(255) NOT NULL,Age int, UNIQUE(ID));
+
+select * from student2;
+
+insert into student2 values(1, 'ABC1', 25);
+
+CREATE TABLE Student3 ( ID int NOT NULL, Name varchar(255) NOT NULL,Age int, CONSTRAINT st_stud UNIQUE(ID, name));
+
+select * from student3;
+
+insert into student3 values(1, 'ABC2', 25); #1-ABC2
+
+CREATE TABLE Employee6 (
+ID int,
+LastName varchar(255) NOT NULL,
+FirstName varchar(255),
+Age int,
+PRIMARY KEY (ID));
+
+select * from employee6;
+
+insert into employee6 values(1, 'ABC3', 'XYZ3', 30); #1-ABC2
+
+select * from employee6 where id =2;
+
+CREATE TABLE Employee7 (
+ID int NOT NULL,
+LastName varchar(255) NOT NULL,
+FirstName varchar(255),
+Age int,
+CONSTRAINT PK_EMPLOYEE PRIMARY KEY (ID, lastname)
+);
+
+select * from employee7;
+
+insert into employee7 values(2, 'ABC3', 'XYZ3', 30); #1-ABC3
+
+CREATE TABLE customer (
+cID int NOT NULL,
+LastName varchar(255) NOT NULL,
+FirstName varchar(255),
+Age int,
+PRIMARY KEY (cID)               #Primary Key
+);
+
+select * from customer;
+
+insert into customer values (111, 'XYZ1','ABC1', 30);
+
+CREATE TABLE Orders1 (
+OrderID int NOT NULL,
+OrderNumber int NOT NULL,
+cID int,
+PRIMARY KEY (OrderID),
+CONSTRAINT FK_ORDERS foreign key (cID) references customer(cid)
+);
+
+select * from orders1;
+
+insert into orders1 values (2, 200, 112);
+
+

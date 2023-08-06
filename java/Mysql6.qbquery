@@ -1,0 +1,81 @@
+﻿show database b21;
+
+use b21;
+
+create table ABC1 (id int not null ,name varchar(50),age int);
+
+select * from ABC1;
+
+insert into ABC1 values  (1,'vikas',25);
+
+#Allias
+
+select * from ABC1;
+
+select name , age  from abc1;
+
+select name as ABC_NAME from abc1;
+
+select id concat_ws(' ',name ,age) as name_age from ABC1;
+
+#Join
+
+create table members (mem_id int auto_increment , name varchar (50),primary key(mem_id));
+
+select * from members;
+
+create table committees(comm_id int auto_increment , name varchar(50),primary key(comm_id));
+
+select * from committees;
+
+insert into members (name,age) values ('Vikas'),('Kundan'),('Karan'),('Prakash'),('Sanjay');
+
+insert into committees (name,age) values ('Vikas'),('Kundan'),('Karan'),('Vijay'),('Sunil');
+
+select mem_id, comm_id, members.name  from members , committees  where members.name = committees.name;
+
+select mem_id as m_id, comm_id, m.name  from members m , committees c  where m.name = c.name ;
+
+#Inner Join: Returns records that have matching values in both tables
+
+select mem_id, comm_id, mm.name from members mm INNER JOIN committees cc ON mm.name = cc.name;
+
+#Left Join: Returns all records from the left table, and the matched records from the right table
+
+select mem_id, comm_id, mm.name from members mm LEFT JOIN committees cc ON mm.name = cc.name;
+
+#Right Join : Returns all records from the right table, and the matched records from the left table
+
+select mem_id, comm_id, mm.name from members mm right JOIN committees cc ON mm.name = cc.name;
+
+#CROSS JOIN: Returns all records from both tables
+
+select mem_id, comm_id, mm.name from members mm cross JOIN committees cc ON mm.name = cc.name;
+
+
+create table course (id int auto_increment ,name varchar (20), primary key (id));
+
+select * from course;
+
+insert into course (name) values ('paython'),('javascript');
+insert into course (name) values ('java'),('cpp');
+
+#create table student (id int auto_increment,name varchar (20),cid int ,primary key(id),constraint fk_stu foreign key (cid)); #references course(id));
+create table student(id int auto_increment, name varchar(20), cid int, primary
+key(id),constraint fk_stu foreign key(cid) references course(id) );
+
+select * from student;
+
+insert into student (name,cid) values ('ABC1',3),('ABC2',4);
+insert into student (name) values ('ABC3'),('ABC4'),('ABC5');
+
+select * from student s inner join course c on s.cid = c.id;
+
+select s.id,s.name,c.name from student s inner join course c on s.cid = c.id;
+
+select s.id,s.name,c.name from student s left join course c on s.cid = c.id;
+
+select s.id,s.name,c.name from student s right join course c on s.cid = c.id;
+
+select s.id, s.name, c.name from student s cross join course c ;
+

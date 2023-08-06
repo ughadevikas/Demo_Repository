@@ -1,0 +1,29 @@
+﻿create database b21;
+
+use b21;
+#Check
+create table employee (id int not null,name varchar(50),salary int  check (salary >10000));
+select * from employee;
+
+insert into employee values (11,'ABC',2000);
+
+#Default
+
+create table employee1(id int not null,name varchar(50),salary int default 10000);
+select * from employee1;
+insert into employee1 values (12,'Abc',5000);
+insert into employee1 (id,name) values (13,'Abc');
+alter table employee1 alter name set default 'Abc2';
+insert into employee1( id, salary) values(11, 30000);
+
+
+#AUTO Increment
+create table employee2 (id int not null AUTO_INCREMENT, name varchar(50), salary int default 10000, primary key(id));
+
+select * from employee2;
+
+insert into employee2(name, salary) values ('PQR2', 26000);
+insert into employee2(name, salary) values ('PQR3', 36000);
+insert into employee2(name, salary) values ('PQR3', 46000);
+insert into employee2(name) values ('PQR');
+insert into employee2 values (11, 'PQR3', 30000);
